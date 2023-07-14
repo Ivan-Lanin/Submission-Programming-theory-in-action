@@ -41,6 +41,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4746292402998370941}
   - component: {fileID: 8132858948070649081}
+  - component: {fileID: 4498162039653268600}
   m_Layer: 0
   m_Name: Grid cell
   m_TagString: Untagged
@@ -77,6 +78,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f584a6e54a158b245966738c7e4d723f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  selectedMaterial: {fileID: 2100000, guid: ddebffd845bd4ac4e9c07d6ab6624c11, type: 2}
+  deselectedMaterial: {fileID: 2100000, guid: 3c126f7e67faafb4d8d6f76e3933945e, type: 2}
+  alertMaterial: {fileID: 2100000, guid: 56149f8709d4312449ab3d780c0ac208, type: 2}
+  factoryPrefab: {fileID: 5625704896203147732, guid: 1788000e2658e94479098de74ba7d92f, type: 3}
+  spawnPoint: {fileID: 8555573681737786587}
+--- !u!65 &4498162039653268600
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1556564217250337622}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 0.109357655, z: 1}
+  m_Center: {x: 0, y: 0.00051927567, z: 0}
 --- !u!1 &4584541856894517160
 GameObject:
   m_ObjectHideFlags: 0
@@ -178,7 +205,7 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 1.0000001, y: 2, z: 1.0000002}
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
