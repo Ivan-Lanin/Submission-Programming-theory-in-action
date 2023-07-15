@@ -3,7 +3,12 @@ guid: f584a6e54a158b245966738c7e4d723f
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - defaulttMaterial: {instanceID: 0}
+  - alertMaterial: {fileID: 2100000, guid: 56149f8709d4312449ab3d780c0ac208, type: 2}
+  - factoryPrefab: {fileID: 5625704896203147732, guid: 1788000e2658e94479098de74ba7d92f, type: 3}
+  - selectedMesh: {instanceID: 0}
+  - spawnPoint: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

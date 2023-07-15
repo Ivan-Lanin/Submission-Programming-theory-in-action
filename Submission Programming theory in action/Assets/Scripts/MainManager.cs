@@ -6,6 +6,9 @@ using UnityEngine;
 public class MainManager : MonoBehaviour
 {
     [SerializeField] private TMP_Text resource1Text;
+    [SerializeField] private TMP_Text resource2Text;
+    public int factoryPrice { get { return 20; } }
+    private int workerHousePrice { get { return 10; } }
 
     public static MainManager Instance { get; private set; }
     public bool isGameActive { get; internal set; }
@@ -22,6 +25,19 @@ public class MainManager : MonoBehaviour
             }
         } 
     }
+    private int resourse2;
+    public int Resource2
+    {
+        get { return resourse2; }
+        set
+        {
+            if (value >= 0)
+            {
+                resourse2 = value;
+                resource2Text.text = resourse2.ToString();
+            }
+        }
+    }
 
     private void Awake()
     {
@@ -36,6 +52,7 @@ public class MainManager : MonoBehaviour
         }
 
         isGameActive = true;
-        Resource1 = 10;
+        Resource1 = 20;
+        Resource2 = 1;
     }
 }

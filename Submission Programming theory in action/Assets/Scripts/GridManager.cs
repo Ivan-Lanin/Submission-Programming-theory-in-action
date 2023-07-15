@@ -13,6 +13,7 @@ public class GridManager : MonoBehaviour
         gridCells = GetComponentsInChildren<GridCell>();
         mainManager = MainManager.Instance;
         StartCoroutine(ChooseMeteorTarget());
+        StartCoroutine(ChooseMeteorTarget());
     }
 
     public void DeselectAll()
@@ -23,13 +24,13 @@ public class GridManager : MonoBehaviour
         }
     }
 
-    public void BuildButtonClicked()
+    public void BuildFactoryButtonClicked()
     {
         foreach (GridCell cell in gridCells)
         {
             if (cell.IsSelected)
             {
-                cell.SpawnBuilding();
+                cell.SpawnBuilding("Factory");
             }
         }
     }
@@ -38,9 +39,12 @@ public class GridManager : MonoBehaviour
     {
         foreach (GridCell cell in gridCells)
         {
-            if (cell.IsSelected)
+            if (!cell.IsSelected || cell.building == null) continue;
+
+            cell.building.TryGetComponent<Factory>(out Factory factory);
+            if (factory != null)
             {
-                cell.DemountBuilding();
+                factory.DemountBuilding();
             }
         }
     }

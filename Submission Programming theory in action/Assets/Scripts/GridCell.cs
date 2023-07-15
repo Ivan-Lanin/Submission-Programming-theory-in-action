@@ -5,16 +5,18 @@ using UnityEngine.VFX;
 
 public class GridCell : MonoBehaviour
 {
-    [SerializeField] private Material selectedMaterial;
-    [SerializeField] private Material deselectedMaterial;
+    
+    [SerializeField] private Material defaulttMaterial;
     [SerializeField] private Material alertMaterial;
     [SerializeField] private GameObject factoryPrefab;
+    [SerializeField] private GameObject meteorPrefab;
+    [SerializeField] private GameObject selectedMesh;
     [SerializeField] private Transform spawnPoint;
 
     private bool isSelctedVar = false;
     public bool IsSelected { get { return isSelctedVar; } private set { isSelctedVar = value; } }
 
-    private GameObject building;
+    public GameObject building { get; private set; }
 
     private MainManager mainManager;
 
@@ -23,23 +25,24 @@ public class GridCell : MonoBehaviour
         mainManager = MainManager.Instance;
     }
 
-    public void SpawnBuilding()
+    public void SpawnBuilding(string buildingType)
     {
-        if (mainManager.Resource1 >= 10)
+        int price = 0;
+        GameObject buildingPrefab = null;
+
+        if (buildingType == "Factory")
         {
-            building = Instantiate(factoryPrefab, spawnPoint.position, Quaternion.identity);
-            mainManager.Resource1 -= 10;
+            price = MainManager.Instance.factoryPrice;
+            buildingPrefab = factoryPrefab;
+        }
+
+        if (mainManager.Resource1 >= price)
+        {
+            building = Instantiate(buildingPrefab, spawnPoint.position, Quaternion.identity);
+            mainManager.Resource1 -= price;
         }
     }
 
-    public void DemountBuilding() 
-    {
-        if (building != null)
-        {
-            Destroy(building);
-            mainManager.Resource1 += 10;
-        }
-    }
 
     public void DestroyBuilding()
     {
@@ -51,13 +54,13 @@ public class GridCell : MonoBehaviour
 
     public void Deselect()
     {
-        GetComponentInChildren<MeshRenderer>().material = deselectedMaterial;
+        selectedMesh.SetActive(false);
         IsSelected = false;
     }
 
     public void Select()
     {
-        GetComponentInChildren<MeshRenderer>().material = selectedMaterial;
+        selectedMesh.SetActive(true);
         IsSelected = true;
     }
 
@@ -69,8 +72,10 @@ public class GridCell : MonoBehaviour
 
     IEnumerator MeteorCountdown()
     {
-        yield return new WaitForSeconds(5);
-        GetComponentInChildren<MeshRenderer>().material = deselectedMaterial;
+        yield return new WaitForSeconds(2);
+        Instantiate(meteorPrefab, new Vector3(0, 7,0), Quaternion.identity);
+        yield return new WaitForSeconds(3);
+        GetComponentInChildren<MeshRenderer>().material = defaulttMaterial;
         if (building != null)
         {
             DestroyBuilding();
