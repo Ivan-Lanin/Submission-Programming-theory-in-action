@@ -7,6 +7,12 @@ public abstract class BaseBuilding : MonoBehaviour
 {
     public abstract int price { get; }
     public int level = 1;
+    public MainManager mainManager;
+
+    public virtual void Awake()
+    {
+        mainManager = MainManager.Instance;
+    }
 
     public virtual void Upgrade()
     {

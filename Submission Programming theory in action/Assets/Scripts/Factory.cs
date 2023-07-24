@@ -5,29 +5,26 @@ using UnityEngine.UI;
 
 public class Factory : BaseBuilding
 {
-    [SerializeField] Slider slider;
+    [SerializeField] Slider productionProgressSlider;
 
-    public MainManager mainManager;
     private int productionSpeed = 20;
-    private int productionPower = 2;
+    private int productionPower = 40;
 
     public override int price { get { return 20; } }
 
-    public void Awake()
+    public override void Awake()
     {
+        base.Awake();
         StartCoroutine(FactoryProgress());
-        mainManager = MainManager.Instance;
-        Upgrade();
-        Debug.Log("Factory level: " + level);
     }
 
     IEnumerator FactoryProgress()
     {
         yield return new WaitForSeconds(1f);
-        slider.value += productionSpeed;
-        if (slider.value >= 100)
+        productionProgressSlider.value += productionSpeed;
+        if (productionProgressSlider.value >= 100)
         {
-            slider.value = 0;
+            productionProgressSlider.value = 0;
             mainManager.Resource1 += productionPower;
         }
         StartCoroutine(FactoryProgress());

@@ -754,7 +754,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfbb50c63bd7eb74f98070fb6a05737a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slider: {fileID: 1957783974774359352}
+  level: 1
+  mainManager: {fileID: 0}
+  productionProgressSlider: {fileID: 1957783974774359352}
 --- !u!1 &7338711158474467433
 GameObject:
   m_ObjectHideFlags: 0

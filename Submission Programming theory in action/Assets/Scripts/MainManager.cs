@@ -8,10 +8,12 @@ public class MainManager : MonoBehaviour
     [SerializeField] private TMP_Text resource1Text;
     [SerializeField] private TMP_Text resource2Text;
     public int factoryPrice { get { return 20; } }
+    public int currentLineNumber;
     private int workerHousePrice { get { return 10; } }
 
     public static MainManager Instance { get; private set; }
     public bool isGameActive { get; internal set; }
+
     private int resourse1;
     public int Resource1 
     {
@@ -25,6 +27,7 @@ public class MainManager : MonoBehaviour
             }
         } 
     }
+
     private int resourse2;
     public int Resource2
     {
@@ -39,6 +42,7 @@ public class MainManager : MonoBehaviour
         }
     }
 
+
     private void Awake()
     {
         Instance = this;
@@ -52,6 +56,7 @@ public class MainManager : MonoBehaviour
         }
 
         isGameActive = true;
+        currentLineNumber = 1;
         Resource1 = 20;
         Resource2 = 1;
     }

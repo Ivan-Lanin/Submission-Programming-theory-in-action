@@ -9,7 +9,6 @@ public class Meteor : MonoBehaviour
     private void Start()
     {
         time = Time.time;
-        Debug.Log("Meteor created");
     }
 
     void Update()
@@ -24,6 +23,5 @@ public class Meteor : MonoBehaviour
     private void OnDestroy()
     {
         time = Time.time - time;
-        Debug.Log("Meteor lifetime: " + time);
     }
 }

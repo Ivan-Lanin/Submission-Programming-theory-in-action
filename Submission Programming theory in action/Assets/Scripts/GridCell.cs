@@ -73,12 +73,27 @@ public class GridCell : MonoBehaviour
     IEnumerator MeteorCountdown()
     {
         yield return new WaitForSeconds(2);
-        Instantiate(meteorPrefab, new Vector3(0, 7,0), Quaternion.identity);
-        yield return new WaitForSeconds(3);
+        Instantiate(meteorPrefab, new Vector3(transform.position.x, 7, transform.position.z), Quaternion.identity);
+        yield return new WaitForSeconds(2.8f);
         GetComponentInChildren<MeshRenderer>().material = defaulttMaterial;
         if (building != null)
         {
             DestroyBuilding();
         }
+    }
+
+    public GridCell[] CheckMyNeighbours(int lineNumber)
+    {
+        Collider[] neighbours = Physics.OverlapSphere(transform.position, 1 * lineNumber);
+
+        GridCell[] cellLines = new GridCell[neighbours.Length - 1];
+        int i = 0;
+        foreach (Collider neighbour in neighbours)
+        {
+            if (neighbour.gameObject == gameObject) continue;
+            cellLines[i] = neighbour.GetComponent<GridCell>();
+            i++;
+        }
+        return cellLines;
     }
 }
