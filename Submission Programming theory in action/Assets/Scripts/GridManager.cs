@@ -15,11 +15,24 @@ public class GridManager : MonoBehaviour
     {
         gridCells = GetComponentsInChildren<GridCell>();
         mainManager = MainManager.Instance;
+
+        for (int i = 0; i < 5; i++)
+        {
+            SpawnRocks();
+        }
+
         for (int i = 0; i <= numberOfMrteorsToSpawn; i++)
         {
             StartCoroutine(ChooseMeteorTarget());
         }
+
         FindLines();
+    }
+
+    private void SpawnRocks()
+    {
+        int cellIndex = Random.Range(0, gridCells.Length);
+        gridCells[cellIndex].SpawnBuilding("Rock");
     }
 
     public void DeselectAll()
@@ -52,6 +65,7 @@ public class GridManager : MonoBehaviour
             if (factory != null)
             {
                 factory.DemountBuilding();
+                CheckForTheLineProgress();
             }
         }
     }
@@ -63,6 +77,7 @@ public class GridManager : MonoBehaviour
             int cellIndex = Random.Range(0, gridCells.Length);
             gridCells[cellIndex].MeteorAlert();
             yield return new WaitForSeconds(5);
+            CheckForTheLineProgress();
         }
     }
 
@@ -80,6 +95,7 @@ public class GridManager : MonoBehaviour
     private void CheckForTheLineProgress()
     {
         int numberOfFactories = 0;
+        Debug.Log(cellLine.Length);
 
         foreach (GridCell cell in cellLine)
         {
@@ -93,11 +109,18 @@ public class GridManager : MonoBehaviour
             }
         }
 
-        Debug.Log(numberOfFactories);
 
         if (numberOfFactories >= cellLine.Length)
         {
-            // TODO: Add shield building
+            if (mainManager.currentLineNumber == 3)
+            {
+                Debug.Log("The floar is completed");
+            }
+
+            foreach (GridCell cell in cellLine)
+            {
+                cell.ActivateShield();
+            }
             mainManager.currentLineNumber++;
             FindLines();
             Debug.Log("Line is full");

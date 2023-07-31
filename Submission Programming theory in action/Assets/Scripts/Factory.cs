@@ -8,7 +8,7 @@ public class Factory : BaseBuilding
     [SerializeField] Slider productionProgressSlider;
 
     private int productionSpeed = 20;
-    private int productionPower = 40;
+    private int productionPower = 20;
 
     public override int price { get { return 20; } }
 

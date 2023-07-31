@@ -8,6 +8,7 @@ public class MainManager : MonoBehaviour
     [SerializeField] private TMP_Text resource1Text;
     [SerializeField] private TMP_Text resource2Text;
     public int factoryPrice { get { return 20; } }
+    public int rockPrice { get { return 0; } }
     public int currentLineNumber;
     private int workerHousePrice { get { return 10; } }
 
@@ -57,7 +58,7 @@ public class MainManager : MonoBehaviour
 
         isGameActive = true;
         currentLineNumber = 1;
-        Resource1 = 20;
+        Resource1 = 0;
         Resource2 = 1;
     }
 }

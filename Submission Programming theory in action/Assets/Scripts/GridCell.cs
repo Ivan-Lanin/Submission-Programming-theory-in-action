@@ -9,7 +9,9 @@ public class GridCell : MonoBehaviour
     [SerializeField] private Material defaulttMaterial;
     [SerializeField] private Material alertMaterial;
     [SerializeField] private GameObject factoryPrefab;
+    [SerializeField] private GameObject rockPrefab;
     [SerializeField] private GameObject meteorPrefab;
+    [SerializeField] private GameObject shield;
     [SerializeField] private GameObject selectedMesh;
     [SerializeField] private Transform spawnPoint;
 
@@ -36,6 +38,12 @@ public class GridCell : MonoBehaviour
             buildingPrefab = factoryPrefab;
         }
 
+        if (buildingType == "Rock")
+        {
+            price = MainManager.Instance.rockPrice;
+            buildingPrefab = rockPrefab;
+        }
+
         if (mainManager.Resource1 >= price)
         {
             building = Instantiate(buildingPrefab, spawnPoint.position, Quaternion.identity);
@@ -60,6 +68,11 @@ public class GridCell : MonoBehaviour
 
     public void Select()
     {
+        if (IsSelected) return;
+        if (building)
+        {
+            if (building.GetComponent<Rock>()) return;
+        }
         selectedMesh.SetActive(true);
         IsSelected = true;
     }
@@ -78,7 +91,10 @@ public class GridCell : MonoBehaviour
         GetComponentInChildren<MeshRenderer>().material = defaulttMaterial;
         if (building != null)
         {
-            DestroyBuilding();
+            if (!shield.activeSelf)
+            {
+                DestroyBuilding();
+            }
         }
     }
 
@@ -86,14 +102,31 @@ public class GridCell : MonoBehaviour
     {
         Collider[] neighbours = Physics.OverlapSphere(transform.position, 1 * lineNumber);
 
-        GridCell[] cellLines = new GridCell[neighbours.Length - 1];
+        int cellsInNeighbours = 0;
+
+        foreach (Collider neighbour in neighbours)
+        { 
+            if (neighbour.GetComponent<GridCell>() != null)
+            {
+                cellsInNeighbours++;
+            }
+        }
+
+        GridCell[] cellLines = new GridCell[cellsInNeighbours];
         int i = 0;
         foreach (Collider neighbour in neighbours)
         {
-            if (neighbour.gameObject == gameObject) continue;
+            //if (neighbour.gameObject == gameObject) continue;
+            if (neighbour.GetComponent<GridCell>() == null) continue;
             cellLines[i] = neighbour.GetComponent<GridCell>();
             i++;
         }
         return cellLines;
+    }
+
+    public void ActivateShield()
+    {
+        if (shield.activeSelf) return;
+        shield.SetActive(true);
     }
 }
