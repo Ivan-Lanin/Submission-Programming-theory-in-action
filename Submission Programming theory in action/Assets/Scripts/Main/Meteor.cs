@@ -4,13 +4,6 @@ using UnityEngine;
 
 public class Meteor : MonoBehaviour
 {
-    private float time;
-
-    private void Start()
-    {
-        time = Time.time;
-    }
-
     void Update()
     {
         transform.Translate(Vector3.down * Time.deltaTime * 2.5f);
@@ -18,10 +11,5 @@ public class Meteor : MonoBehaviour
         {
             Destroy(gameObject);
         }
-    }
-
-    private void OnDestroy()
-    {
-        time = Time.time - time;
     }
 }

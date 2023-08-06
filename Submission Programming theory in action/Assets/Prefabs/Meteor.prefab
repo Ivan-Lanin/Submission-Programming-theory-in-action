@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8054671601391880343}
   - component: {fileID: 6754219514859230879}
   - component: {fileID: 6259671819940302814}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Meteor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4898,7 +4898,7 @@ ParticleSystemRenderer:
   m_MeshDistribution: 0
   m_SortMode: 0
   m_MinParticleSize: 0
-  m_MaxParticleSize: 0.5
+  m_MaxParticleSize: 0.16
   m_CameraVelocityScale: 0
   m_VelocityScale: 0
   m_LengthScale: 2

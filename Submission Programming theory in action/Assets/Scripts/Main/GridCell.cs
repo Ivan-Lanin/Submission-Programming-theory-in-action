@@ -1,7 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Animations;
+using UnityEditor.Timeline.Actions;
 using UnityEngine;
 using UnityEngine.VFX;
+
 
 public class GridCell : MonoBehaviour
 {
@@ -14,6 +17,10 @@ public class GridCell : MonoBehaviour
     [SerializeField] private GameObject shield;
     [SerializeField] private GameObject selectedMesh;
     [SerializeField] private Transform spawnPoint;
+    [SerializeField] public Animator animator;
+
+    public delegate void SpawnAction();
+    public static event SpawnAction OnSpawned;
 
     private bool isSelctedVar = false;
     public bool IsSelected { get { return isSelctedVar; } private set { isSelctedVar = value; } }
@@ -25,22 +32,25 @@ public class GridCell : MonoBehaviour
     private void Start()
     {
         mainManager = MainManager.Instance;
+        animator = GetComponent<Animator>();
     }
 
     public void SpawnBuilding(string buildingType)
     {
+        if (building != null) return;
+
         int price = 0;
         GameObject buildingPrefab = null;
 
         if (buildingType == "Factory")
         {
-            price = MainManager.Instance.factoryPrice;
+            price = mainManager.factoryPrice;
             buildingPrefab = factoryPrefab;
         }
 
         if (buildingType == "Rock")
         {
-            price = MainManager.Instance.rockPrice;
+            price = mainManager.rockPrice;
             buildingPrefab = rockPrefab;
         }
 
@@ -48,6 +58,7 @@ public class GridCell : MonoBehaviour
         {
             building = Instantiate(buildingPrefab, spawnPoint.position, Quaternion.identity);
             mainManager.Resource1 -= price;
+            OnSpawned?.Invoke();
         }
     }
 
@@ -57,6 +68,7 @@ public class GridCell : MonoBehaviour
         if (building != null)
         {
             Destroy(building);
+            building = null;
         }
     }
 
@@ -68,11 +80,27 @@ public class GridCell : MonoBehaviour
 
     public void Select()
     {
-        if (IsSelected) return;
         if (building)
         {
             if (building.GetComponent<Rock>()) return;
         }
+        if (IsSelected)
+        {
+            if (building == null)
+            {
+                SpawnBuilding("Factory");
+            }
+
+            else
+            {
+                building.TryGetComponent<Factory>(out Factory factory);
+                if (factory != null)
+                {
+                    factory.DemountBuilding();
+                }
+            }
+        }
+
         selectedMesh.SetActive(true);
         IsSelected = true;
     }

@@ -8,6 +8,7 @@ public abstract class BaseBuilding : MonoBehaviour
     public abstract int price { get; }
     public int level = 1;
     public MainManager mainManager;
+    public bool isDemounted;
 
     public virtual void Awake()
     {
@@ -23,5 +24,6 @@ public abstract class BaseBuilding : MonoBehaviour
     {
         MainManager.Instance.Resource1 += price;
         Destroy(gameObject);
+        isDemounted = true;
     }
 }

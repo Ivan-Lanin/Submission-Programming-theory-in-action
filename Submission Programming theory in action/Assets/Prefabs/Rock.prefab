@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 190168997603938435}
   - component: {fileID: 3377437170204311243}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Rock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -46,6 +46,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bd1c853b4324164a925de564587e34a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  level: 1
+  mainManager: {fileID: 0}
+  isDemounted: 0
 --- !u!1 &3956073182609716611
 GameObject:
   m_ObjectHideFlags: 0
@@ -58,7 +61,7 @@ GameObject:
   - component: {fileID: 7378416674439631612}
   - component: {fileID: 4217555597971944760}
   - component: {fileID: 4663618304995067194}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -163,7 +166,7 @@ GameObject:
   - component: {fileID: 6894941532504861617}
   - component: {fileID: 7746031310198734517}
   - component: {fileID: 8754562900919813516}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}

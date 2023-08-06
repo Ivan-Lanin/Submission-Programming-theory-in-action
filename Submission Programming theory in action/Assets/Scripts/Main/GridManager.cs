@@ -9,14 +9,25 @@ public class GridManager : MonoBehaviour
     private GridCell[] cellLine;
     private MainManager mainManager;
 
-    private int numberOfMrteorsToSpawn = 3;
+    private int numberOfMrteorsToSpawn = 10;
+    private int numberOfRocksToSpawn = 6;
+
+    void OnEnable()
+    {
+        GridCell.OnSpawned += CheckForTheLineProgress;
+    }
+
+    void OnDisable()
+    {
+        GridCell.OnSpawned -= CheckForTheLineProgress;
+    }
 
     void Start()
     {
         gridCells = GetComponentsInChildren<GridCell>();
         mainManager = MainManager.Instance;
 
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < numberOfRocksToSpawn; i++)
         {
             SpawnRocks();
         }
@@ -33,6 +44,15 @@ public class GridManager : MonoBehaviour
     {
         int cellIndex = Random.Range(0, gridCells.Length);
         gridCells[cellIndex].SpawnBuilding("Rock");
+    }
+
+    public void DeselectAll(GridCell selectedCell)
+    {
+        foreach (GridCell cell in gridCells)
+        {
+            if (selectedCell == cell) continue;
+            cell.Deselect();
+        }
     }
 
     public void DeselectAll()
@@ -95,7 +115,7 @@ public class GridManager : MonoBehaviour
     private void CheckForTheLineProgress()
     {
         int numberOfFactories = 0;
-        Debug.Log(cellLine.Length);
+        if (cellLine == null) return;
 
         foreach (GridCell cell in cellLine)
         {

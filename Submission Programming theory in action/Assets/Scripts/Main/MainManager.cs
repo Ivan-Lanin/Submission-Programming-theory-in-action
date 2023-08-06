@@ -7,6 +7,7 @@ public class MainManager : MonoBehaviour
 {
     [SerializeField] private TMP_Text resource1Text;
     [SerializeField] private TMP_Text resource2Text;
+    [SerializeField] private TMP_Text gameOverText;
     public int factoryPrice { get { return 20; } }
     public int rockPrice { get { return 0; } }
     public int currentLineNumber;
@@ -40,6 +41,11 @@ public class MainManager : MonoBehaviour
                 resourse2 = value;
                 resource2Text.text = resourse2.ToString();
             }
+            if (value == 3)
+            {
+                gameOverText.gameObject.SetActive(true);
+                Time.timeScale = 0;
+            }
         }
     }
 
@@ -58,7 +64,7 @@ public class MainManager : MonoBehaviour
 
         isGameActive = true;
         currentLineNumber = 1;
-        Resource1 = 0;
-        Resource2 = 1;
+        Resource1 = 20;
+        Resource2 = 0;
     }
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Rock : BaseBuilding
 {
-    public override int price { get { return 20; } }
+    public override int price { get { return 10; } }
 
     private void OnDestroy()
     {
